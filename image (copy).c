@@ -44,17 +44,17 @@ int main()
 			}
 		}
 	
-	//count Total no. of 1s present in the matrix
-	for(i=0;i<m;i++)
+	//Display the matrix 
+/*for(i=0;i<m;i++)
 	{
 		for(j=0;j<n;j++)
-		{
-			if(matrix[i][j]==1)
-			{
-				count1++;
-			}
+		{//if(matrix[i][j]==1)
+		//count1++;   //finding total no. of 1s in the matrix
+			printf("%d\t",matrix[i][j]);
 		}
-	}
+		printf("\n");
+	}*/
+	
 	
 	//TRAVERSING AND FINDING TOP LEFT ELEMENT
 
@@ -91,7 +91,7 @@ int main()
 		flag=0; //loop executed at least one time
 		loopcount++;
 		//if right
-	   if( current.y!=n-1 && matrix[current.x][current.y+1]==1 && !processed[current.x][current.y+1] )   //not the rightmost one 
+	   if( current.y!=n-1 && matrix[current.x][current.y+1]==1 && !processed[current.x][current.y] )   //not the rightmost one 
 	   {
 		   arr[it++]=RIGHT;
 		   
@@ -101,56 +101,56 @@ int main()
 		  // current.y=top.y;
 	   }
 	   //if bottom
-	   else  if( current.x!=m-1 && matrix[current.x+1][current.y]==1 && !processed[current.x+1][current.y])   //not the bottom_most one 
+	   else  if(matrix[current.x+1][current.y]==1 && !processed[current.x][current.y] && current.x!=m-1)   //not the bottom_most one 
 	   {
 		   arr[it++]=BOTTOM;
 				   processed[current.x][current.y]=1;
-		   current.x+=1;
+		   current.x++;
 		   count++;
 
 		  // current.y=top.y;
 	   }
 	   
 	   //BOTTOM RIGHT
-	   else  if(current.x!=m-1 && current.y!=n-1 && matrix[current.x+1][current.y+1]==1 && !processed[current.x+1][current.y+1])   //not the bottom_most one 
+	   else  if(matrix[current.x+1][current.y+1]==1 && !processed[current.x][current.y] && current.x!=m-1)   //not the bottom_most one 
 	   {
 		   arr[it++]=BOTTOM_RIGHT;
 					   processed[current.x][current.y]=1;
-		   current.x+=1;
-		   current.y+=1;
+		   current.x++;
+		   current.y++;
 		   count++;
 
 		  // current.y=top.y;
 	   }
 	   //BOTTOM LEFT
-	  else  if(current.y!=0 && current.x!= m-1 && matrix[current.x+1][current.y-1]==1 && !processed[current.x+1][current.y-1])   //not the bottom_most one 
+	  else  if(matrix[current.x+1][current.y-1]==1 && !processed[current.x][current.y] && current.y!=0)   //not the bottom_most one 
 	   {
-		   arr[it++]=BOTTOM_LEFT;
+		   arr[it++]=BOTTOM_RIGHT;
 					   processed[current.x][current.y]=1;
-		   current.x+=1;
-		   current.y-=1;
+		   current.x++;
+		   current.y--;
 		   count++;
 
 		  // current.y=top.y;
 	   }
 	   //LEFT
-	  else  if( current.y!=0 && matrix[current.x][current.y-1]==1 && !processed[current.x][current.y-1] )   //not the bottom_most one 
+	  else  if(matrix[current.x][current.y-1]==1 && !processed[current.x][current.y] && current.y!=0)   //not the bottom_most one 
 	   {
 		   arr[it++]=LEFT;
 		   processed[current.x][current.y]=1;
 		    //current.x++;
-		   current.y-=1;
+		   current.y--;
 		   count++;
 
 		  // current.y=top.y;
 	   }
 	   
 	   //UP
-	  else  if( current.x!=0 && matrix[current.x-1][current.y]==1 && !processed[current.x-1][current.y])   //not the bottom_most one 
+	  else  if(matrix[current.x-1][current.y]==1 && !processed[current.x][current.y] && current.x!=0)   //not the bottom_most one 
 	   {
 		   arr[it++]=TOP;
 		   processed[current.x][current.y]=1;
-		    current.x-=1;
+		    current.x--;
 		   //current.y--;
 		   count++;
 
@@ -158,30 +158,30 @@ int main()
 	   }
 	   //UP_LEFT
 	   
-	  else  if(current.y!=0 && current.x!=0 && matrix[current.x-1][current.y-1]==1 && !processed[current.x-1][current.y-1] )   //not the bottom_most one 
+	  else  if(matrix[current.x-1][current.y-1]==1 && !processed[current.x][current.y] && current.y!=0)   //not the bottom_most one 
 	   {
 		   arr[it++]=TOP_LEFT;
 		   processed[current.x][current.y]=1;
-		   current.x-=1;
-		   current.y-=1;
+		   current.x--;
+		   current.y--;
 		   count++;
 
 		  // current.y=top.y;
 	   }
 	   //TOP_RIGHT
-	  else  if(current.y!=n-1 && current.x!=m-1 && matrix[current.x-1][current.y+1]==1 && !processed[current.x-1][current.y+1])   //not the bottom_most one 
+	  else  if(matrix[current.x-1][current.y+1]==1 && !processed[current.x][current.y] && current.y!=n-1)   //not the bottom_most one 
 	   {
 		   arr[it++]=TOP_RIGHT;
 
 		   processed[current.x][current.y]=1;
-		   current.x-=1;
-		   current.y+=1;
+		   current.x--;
+		   current.y++;
 		   count++;
 
 		  // current.y=top.y;
 	   }
 	   
-	}while(count!=count1-1);
+	}while(current.x!=top.x && current.y!=top.y);
 	
 	
 for(i=0;i<=it;i++)
